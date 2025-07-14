@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json({ limit: "50mb" })); // Increased for multiple images
 app.use(express.static("public"));
 
-// Reference database for ammunition specifications
+// Enhanced ammunition database with more entries and distinguishing features
 const ammoDatabase = {
   "9mm": {
     fullName: "9×19mm Parabellum",
@@ -22,40 +22,8 @@ const ammoDatabase = {
     variations: ["9mm Luger", "9mm Para", "9×19"],
     similarCartridges: [".380 ACP", ".38 Super", "9mm Makarov"],
     commonManufacturers: ["Federal", "Winchester", "Remington", "CCI"],
-    headstampPatterns: ["FC", "WIN", "R-P", "PMC", "S&B"],
-  },
-  ".45 ACP": {
-    fullName: ".45 Automatic Colt Pistol",
-    caseLength: "22.8mm",
-    overallLength: "32.4mm",
-    rimDiameter: "12.19mm",
-    bulletDiameter: "11.5mm",
-    variations: [".45 Auto", ".45 ACP"],
-    similarCartridges: [".45 GAP", ".45 Long Colt"],
-    commonManufacturers: ["Federal", "Winchester", "Remington"],
-    headstampPatterns: ["FC", "WIN", "R-P", ".45 AUTO"],
-  },
-  ".223 Remington": {
-    fullName: ".223 Remington",
-    caseLength: "44.7mm",
-    overallLength: "57.4mm",
-    rimDiameter: "9.6mm",
-    bulletDiameter: "5.7mm",
-    variations: ["5.56×45mm NATO", ".223 Rem"],
-    similarCartridges: ["5.56×45mm NATO", ".222 Remington", ".224 Valkyrie"],
-    commonManufacturers: ["Federal", "Winchester", "Remington", "PMC"],
-    headstampPatterns: ["FC", "WIN", "R-P", "LC", "PMC"],
-  },
-  "5.7×28mm": {
-    fullName: "5.7×28mm",
-    caseLength: "28.0mm",
-    overallLength: "40.5mm",
-    rimDiameter: "7.9mm",
-    bulletDiameter: "5.7mm",
-    variations: ["5.7x28", "SS190", "SS197"],
-    similarCartridges: [".22 WMR", ".17 HMR", "5.56×45mm"],
-    commonManufacturers: ["FN Herstal", "Federal", "Hornady"],
-    headstampPatterns: ["FN", "FC", "HORN"],
+    headstampPatterns: ["FC", "WIN", "R-P", "PMC", "S&B", "9MM"],
+    distinguishingFeatures: "Short pistol cartridge, rimless, straight-walled",
   },
   ".450 Bushmaster": {
     fullName: ".450 Bushmaster",
@@ -63,10 +31,12 @@ const ammoDatabase = {
     overallLength: "70.0mm",
     rimDiameter: "12.0mm",
     bulletDiameter: "11.5mm",
-    variations: [".450 BM"],
-    similarCartridges: [".50 Beowulf", ".458 SOCOM", ".50 Action Express"],
+    variations: [".450 BM", ".450 BUSH"],
+    similarCartridges: [".50 Beowulf", ".458 SOCOM"],
     commonManufacturers: ["Hornady", "Winchester", "Remington"],
-    headstampPatterns: ["HORN", "WIN", "R-P", ".450 BUSH"],
+    headstampPatterns: ["HORN", "WIN", "R-P", ".450 BUSH", "450 BUSHMASTER"],
+    distinguishingFeatures:
+      "Modern straight-walled rifle cartridge, rimless, large rifle primer",
   },
   ".50 Beowulf": {
     fullName: ".50 Beowulf",
@@ -75,9 +45,50 @@ const ammoDatabase = {
     rimDiameter: "15.0mm",
     bulletDiameter: "12.7mm",
     variations: [".50 Beo"],
-    similarCartridges: [".450 Bushmaster", ".458 SOCOM", ".50 AE"],
+    similarCartridges: [".450 Bushmaster", ".458 SOCOM"],
     commonManufacturers: ["Alexander Arms", "Hornady"],
-    headstampPatterns: ["AA", ".50 BEOWULF", "HORN"],
+    headstampPatterns: ["AA", ".50 BEOWULF", "HORN", "50 BEOWULF"],
+    distinguishingFeatures:
+      "Modern straight-walled rifle cartridge, rebated rim, larger bullet than .450 Bushmaster",
+  },
+  ".50-90 Sharps": {
+    fullName: ".50-90 Sharps",
+    caseLength: "76mm",
+    overallLength: "95mm",
+    rimDiameter: "16.5mm",
+    bulletDiameter: "12.7mm",
+    variations: [".50-90", "50-90 Sharps"],
+    similarCartridges: [".50-110 Winchester", ".45-120"],
+    commonManufacturers: ["Vintage manufacturers", "Buffalo Arms", "Starline"],
+    headstampPatterns: ["50-90", "STARLINE", "BA"],
+    distinguishingFeatures:
+      "VINTAGE black powder cartridge, much longer than modern cartridges, rimmed",
+  },
+  "5.7×28mm": {
+    fullName: "5.7×28mm",
+    caseLength: "28.0mm",
+    overallLength: "40.5mm",
+    rimDiameter: "7.9mm",
+    bulletDiameter: "5.7mm",
+    variations: ["5.7x28", "SS190", "SS197"],
+    similarCartridges: [".22 WMR", ".17 HMR"],
+    commonManufacturers: ["FN Herstal", "Federal", "Hornady"],
+    headstampPatterns: ["FN", "FC", "HORN", "5.7x28"],
+    distinguishingFeatures:
+      "Small bottleneck rifle cartridge, much shorter than 5.56 NATO",
+  },
+  ".223 Remington": {
+    fullName: ".223 Remington",
+    caseLength: "44.7mm",
+    overallLength: "57.4mm",
+    rimDiameter: "9.6mm",
+    bulletDiameter: "5.7mm",
+    variations: ["5.56×45mm NATO", ".223 Rem"],
+    similarCartridges: ["5.56×45mm NATO", ".222 Remington"],
+    commonManufacturers: ["Federal", "Winchester", "Remington", "PMC"],
+    headstampPatterns: ["FC", "WIN", "R-P", "LC", "PMC", ".223"],
+    distinguishingFeatures:
+      "Bottleneck rifle cartridge, longer than 5.7x28, military and civilian use",
   },
   ".350 Legend": {
     fullName: ".350 Legend",
@@ -86,9 +97,11 @@ const ammoDatabase = {
     rimDiameter: "9.6mm",
     bulletDiameter: "9.1mm",
     variations: [".350 Leg"],
-    similarCartridges: [".357 Magnum", ".38 Special", ".35 Remington"],
+    similarCartridges: [".357 Magnum", ".38 Special"],
     commonManufacturers: ["Winchester", "Federal", "Hornady"],
-    headstampPatterns: ["WIN", "FC", ".350 LEGEND"],
+    headstampPatterns: ["WIN", "FC", ".350 LEGEND", "350 LEG"],
+    distinguishingFeatures:
+      "Modern straight-walled rifle cartridge, longer than pistol cartridges",
   },
   ".357 Magnum": {
     fullName: ".357 Magnum",
@@ -97,9 +110,11 @@ const ammoDatabase = {
     rimDiameter: "11.2mm",
     bulletDiameter: "9.1mm",
     variations: [".357 Mag"],
-    similarCartridges: [".38 Special", ".350 Legend", ".38 Super"],
+    similarCartridges: [".38 Special", ".350 Legend"],
     commonManufacturers: ["Federal", "Winchester", "Remington"],
-    headstampPatterns: ["FC", "WIN", "R-P", ".357 MAG"],
+    headstampPatterns: ["FC", "WIN", "R-P", ".357 MAG", "357"],
+    distinguishingFeatures:
+      "Revolver cartridge, rimmed, shorter than .350 Legend",
   },
 };
 
@@ -120,11 +135,11 @@ app.post("/api/validate-ammo-v2", async (req, res) => {
     // Enhanced prompt based on image type
     const prompts = {
       headstamp:
-        "Does this close-up image show ammunition headstamp markings or the base of a cartridge? Look for text, numbers, or manufacturer markings on the base of ammunition. Answer only 'YES' or 'NO'.",
+        "CRITICAL: Read ALL visible text on this ammunition headstamp. Look for caliber markings like '.450 BUSH', '.50 BEOWULF', '9MM', '.223 REM', etc. The text is the PRIMARY identifier - prioritize any caliber text over visual appearance. List every letter, number, and symbol you can see. Answer: What exact text do you see? If you see '.450' anywhere, this is likely .450 Bushmaster. Answer only 'YES' or 'NO' for ammunition detection, but note any caliber text.",
       profile:
-        "Does this side-view image show a complete ammunition cartridge in profile? Look for the full cartridge shape with bullet, case, and base visible. Answer only 'YES' or 'NO'.",
+        "Does this side-view image show a complete ammunition cartridge in profile? Look for the full cartridge shape with bullet, case, and base visible. Estimate the proportions - is this a long rifle cartridge (60mm+) or shorter pistol cartridge (30-40mm)? Answer only 'YES' or 'NO'.",
       comparison:
-        "Does this image show ammunition next to a size reference object (coin, ruler, etc.)? Answer only 'YES' or 'NO'.",
+        "Does this image show ammunition next to a size reference object (coin, ruler, etc.)? If yes, estimate the actual cartridge length using the reference. Answer only 'YES' or 'NO'.",
       base: "Does this image show the base/rim view of ammunition? Look for the bottom view showing the rim and primer. Answer only 'YES' or 'NO'.",
     };
 
@@ -215,32 +230,69 @@ app.post("/api/identify-ammo-v2", async (req, res) => {
 
 async function analyzeImageByType(type, image) {
   const prompts = {
-    headstamp: `Analyze this headstamp image and extract all visible text, numbers, and markings. Look for:
-- Manufacturer codes (FC, WIN, R-P, PMC, etc.)
-- Caliber markings (.45 AUTO, 9mm, .223 REM, etc.)
-- Year codes or other identifiers
-Return the visible text and your best caliber guess.`,
+    headstamp: `PRIORITY: Extract ALL visible text from this headstamp image. This text is the PRIMARY identifier for ammunition.
 
-    profile: `Analyze this side-profile ammunition image for:
-- Overall cartridge length (estimate relative proportions)
-- Case shape (straight-walled, bottlenecked, tapered)
-- Bullet type and shape
-- Case-to-bullet length ratio
-- Any visible crimps or features
-Estimate the caliber based on proportions.`,
+Look for these specific patterns:
+- Caliber markings: .450 BUSH, .50 BEOWULF, 9MM, .223 REM, .308 WIN, etc.
+- Manufacturer codes: WIN, FC, R-P, PMC, HORN, AA, etc.
+- Any numbers or letters around the rim
 
-    comparison: `Analyze this size comparison image:
-- Estimate actual cartridge dimensions using the reference object
-- Compare size to common objects (penny = 19mm, quarter = 24mm)
-- Calculate approximate overall length and case diameter
-- Determine size category (pistol, rifle, etc.)`,
+CRITICAL RULES:
+1. If you see ".450" anywhere, this is likely .450 Bushmaster
+2. If you see ".50 BEOWULF" or "AA", this is .50 Beowulf  
+3. Text identification OVERRIDES visual appearance
+4. List every visible character exactly as you see it
 
-    base: `Analyze this base/rim view:
-- Rim type (rimmed, rimless, rebated)
-- Rim diameter relative to case
-- Primer type and size
-- Any visible markings around the rim
-- Case head diameter estimation`,
+Return the visible text and your best caliber identification based on TEXT FIRST.`,
+
+    profile: `Analyze this side-profile ammunition image for precise measurements:
+
+CRITICAL MEASUREMENTS:
+- Overall cartridge length (estimate in mm)
+- Case length vs bullet length ratio
+- Case shape: straight-walled, bottleneck, or tapered
+- Bullet profile and type
+
+SIZE CATEGORIES:
+- Pistol: 25-35mm overall length
+- Rifle: 50-80mm overall length  
+- Magnum rifle: 80mm+ overall length
+
+KEY DISTINCTIONS:
+- .450 Bushmaster: ~70mm, straight-walled, large bullet
+- .50-90 Sharps: 90mm+, very long vintage cartridge
+- 5.7x28: ~40mm, small rifle cartridge
+- 5.56 NATO: ~57mm, bottleneck rifle
+
+Provide size estimate and cartridge category.`,
+
+    comparison: `Analyze this size comparison image for EXACT measurements:
+
+REFERENCE OBJECTS:
+- US Penny: 19.05mm diameter
+- US Quarter: 24.26mm diameter  
+- US Ruler: Use markings for precise measurement
+
+Calculate the cartridge's:
+- Overall length in millimeters
+- Case diameter
+- Compare to known cartridge sizes
+
+This is CRITICAL for distinguishing similar cartridges like .450 Bushmaster vs .50 Beowulf.`,
+
+    base: `Analyze this base/rim view for technical specifications:
+
+EXAMINE:
+- Rim type: rimmed, rimless, rebated rim
+- Rim diameter vs case diameter
+- Primer size: small rifle, large rifle, pistol
+- Case head diameter
+- Any text around the rim edge
+
+IMPORTANT DISTINCTIONS:
+- .450 Bushmaster: Large rifle primer, rimless
+- .50 Beowulf: Large rifle primer, rebated rim
+- Modern vs vintage cartridge construction`,
   };
 
   try {
