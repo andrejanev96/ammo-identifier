@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Ammo Identifier - Ammo.com</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>AI Ammunition Identifier</h1>
+        <p>
+          Upload a clear photo of your ammunition to get instant identification
+          with detailed ballistics data, safety information, and historical
+          context.
+        </p>
+      </div>
+
+      <div class="status-indicator">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">Connecting to AI service...</span>
+      </div>
+
+      <div class="upload-section">
+        <div class="upload-area" id="uploadArea">
+          <div class="upload-icon">📷</div>
+          <div class="upload-text">Drop ammunition photo here</div>
+          <div class="upload-subtext">or click to select file (JPG, PNG)</div>
+          <input type="file" id="fileInput" accept="image/*" />
+
+          <div class="image-preview-container" id="imagePreviewContainer">
+            <img id="imagePreview" class="image-preview" />
+
+            <div class="validation-checking" id="validationChecking">
+              <p>🔍 Checking if image contains ammunition...</p>
+            </div>
+
+            <div
+              class="upload-success"
+              id="uploadSuccess"
+              style="display: none"
+            >
+              <span class="check-icon">✓</span>
+              <span>Ammunition detected - ready for analysis</span>
+            </div>
+
+            <div class="validation-error" id="validationError">
+              <h4>⚠️ No Ammunition Detected</h4>
+              <p>
+                This image doesn't appear to contain ammunition. Please upload a
+                clear photo showing ammunition cartridges, bullets, or rounds
+                for accurate identification.
+              </p>
+            </div>
+
+            <div class="image-controls">
+              <button class="remove-btn" id="removeBtn">
+                <span>×</span>
+                <span>Remove</span>
+              </button>
+              <button class="reupload-btn" id="reuploadBtn">
+                <span>📷</span>
+                <span>Choose Different</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <button class="analyze-btn" id="analyzeBtn" disabled>
+          Analyze Ammunition
+        </button>
+      </div>
+
+      <div class="results-section" id="resultsSection">
+        <div class="loading" id="loadingIndicator">
+          <div class="loading-spinner"></div>
+          <p>Analyzing ammunition characteristics...</p>
+        </div>
+
+        <div id="resultsContent" style="display: none">
+          <div class="results-header">
+            <h2 id="identificationTitle">Ammunition Identified</h2>
+            <div class="confidence-display">
+              <div class="confidence-bar">
+                <div class="confidence-fill" id="confidenceBar"></div>
+              </div>
+              <div class="confidence-text" id="confidenceText">
+                Confidence: --
+              </div>
+            </div>
+          </div>
+
+          <div class="results-grid">
+            <div class="result-card">
+              <h3>Identification</h3>
+              <p id="identificationDetails">--</p>
+            </div>
+
+            <div class="result-card">
+              <h3>Ballistics Performance</h3>
+              <p id="ballisticsData">--</p>
+            </div>
+
+            <div class="result-card">
+              <h3>Safety Information</h3>
+              <p id="safetyNotes">--</p>
+            </div>
+
+            <div class="result-card">
+              <h3>Historical Background</h3>
+              <p id="historicalInfo">--</p>
+            </div>
+          </div>
+
+          <div class="email-capture">
+            <h3>Get Detailed Ballistics Data</h3>
+            <p>
+              Join our community for exclusive ballistics charts, reloading
+              data, and expert shooting insights.
+            </p>
+            <div class="email-form">
+              <input
+                type="email"
+                class="email-input"
+                placeholder="Enter your email address"
+                id="emailInput"
+              />
+              <button class="email-btn" id="emailBtn">Subscribe</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
