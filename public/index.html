@@ -3,17 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI Ammo Identifier - Ammo.com</title>
+    <title>AI Ammo Identifier v2.0 - Enhanced Accuracy</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="container">
       <div class="header">
-        <h1>AI Ammunition Identifier</h1>
+        <h1>AI Ammunition Identifier <span class="version">v2.0</span></h1>
         <p>
-          Upload a clear photo of your ammunition to get instant identification
-          with detailed ballistics data, safety information, and historical
-          context.
+          Upload multiple angles of your ammunition for enhanced accuracy and
+          detailed analysis.
         </p>
       </div>
 
@@ -23,58 +22,185 @@
       </div>
 
       <div class="upload-section">
-        <div class="upload-area" id="uploadArea">
-          <div class="upload-icon">📷</div>
-          <div class="upload-text">Drop ammunition photo here</div>
-          <div class="upload-subtext">or click to select file (JPG, PNG)</div>
-          <input type="file" id="fileInput" accept="image/*" />
-
-          <div class="image-preview-container" id="imagePreviewContainer">
-            <img id="imagePreview" class="image-preview" />
-
-            <div class="validation-checking" id="validationChecking">
-              <p>🔍 Checking if image contains ammunition...</p>
+        <div class="upload-instructions">
+          <h3>📸 For Best Results, Upload These Views:</h3>
+          <div class="instruction-grid">
+            <div class="instruction-item">
+              <div class="instruction-icon">🔍</div>
+              <div class="instruction-title">Headstamp Close-up</div>
+              <div class="instruction-desc">
+                Clear view of text/markings on base
+              </div>
             </div>
-
-            <div
-              class="upload-success"
-              id="uploadSuccess"
-              style="display: none"
-            >
-              <span class="check-icon">✓</span>
-              <span>Ammunition detected - ready for analysis</span>
+            <div class="instruction-item">
+              <div class="instruction-icon">📏</div>
+              <div class="instruction-title">Side Profile</div>
+              <div class="instruction-desc">
+                Full cartridge showing length & shape
+              </div>
             </div>
-
-            <div class="validation-error" id="validationError">
-              <h4>⚠️ No Ammunition Detected</h4>
-              <p>
-                This image doesn't appear to contain ammunition. Please upload a
-                clear photo showing ammunition cartridges, bullets, or rounds
-                for accurate identification.
-              </p>
+            <div class="instruction-item">
+              <div class="instruction-icon">⚖️</div>
+              <div class="instruction-title">Size Comparison</div>
+              <div class="instruction-desc">
+                Next to coin or ruler for scale
+              </div>
             </div>
-
-            <div class="image-controls">
-              <button class="remove-btn" id="removeBtn">
-                <span>×</span>
-                <span>Remove</span>
-              </button>
-              <button class="reupload-btn" id="reuploadBtn">
-                <span>📷</span>
-                <span>Choose Different</span>
-              </button>
+            <div class="instruction-item">
+              <div class="instruction-icon">🎯</div>
+              <div class="instruction-title">Base View</div>
+              <div class="instruction-desc">Rim type and primer details</div>
             </div>
           </div>
         </div>
+
+        <div class="multi-upload-container">
+          <div class="upload-areas-grid">
+            <div class="upload-area" data-type="headstamp">
+              <div class="upload-header">
+                <span class="upload-icon">🔍</span>
+                <span class="upload-label">Headstamp</span>
+                <span class="required-badge">Recommended</span>
+              </div>
+              <div class="upload-content">
+                <div class="upload-text">Drop headstamp photo here</div>
+                <div class="upload-subtext">Close-up of base markings</div>
+              </div>
+              <input
+                type="file"
+                class="file-input"
+                accept="image/*"
+                data-type="headstamp"
+              />
+              <div class="image-preview-container" style="display: none">
+                <img class="image-preview" />
+                <div class="image-controls">
+                  <button class="remove-btn">×</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="upload-area" data-type="profile">
+              <div class="upload-header">
+                <span class="upload-icon">📏</span>
+                <span class="upload-label">Side Profile</span>
+                <span class="required-badge">Recommended</span>
+              </div>
+              <div class="upload-content">
+                <div class="upload-text">Drop side view here</div>
+                <div class="upload-subtext">Full cartridge profile</div>
+              </div>
+              <input
+                type="file"
+                class="file-input"
+                accept="image/*"
+                data-type="profile"
+              />
+              <div class="image-preview-container" style="display: none">
+                <img class="image-preview" />
+                <div class="image-controls">
+                  <button class="remove-btn">×</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="upload-area" data-type="comparison">
+              <div class="upload-header">
+                <span class="upload-icon">⚖️</span>
+                <span class="upload-label">Size Comparison</span>
+                <span class="optional-badge">Optional</span>
+              </div>
+              <div class="upload-content">
+                <div class="upload-text">Drop comparison photo</div>
+                <div class="upload-subtext">With coin or ruler</div>
+              </div>
+              <input
+                type="file"
+                class="file-input"
+                accept="image/*"
+                data-type="comparison"
+              />
+              <div class="image-preview-container" style="display: none">
+                <img class="image-preview" />
+                <div class="image-controls">
+                  <button class="remove-btn">×</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="upload-area" data-type="base">
+              <div class="upload-header">
+                <span class="upload-icon">🎯</span>
+                <span class="upload-label">Base View</span>
+                <span class="optional-badge">Optional</span>
+              </div>
+              <div class="upload-content">
+                <div class="upload-text">Drop base view here</div>
+                <div class="upload-subtext">Rim and primer details</div>
+              </div>
+              <input
+                type="file"
+                class="file-input"
+                accept="image/*"
+                data-type="base"
+              />
+              <div class="image-preview-container" style="display: none">
+                <img class="image-preview" />
+                <div class="image-controls">
+                  <button class="remove-btn">×</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="upload-progress">
+            <div class="progress-header">
+              <span>Images Uploaded: <span id="uploadCount">0</span>/4</span>
+              <span class="progress-note">Minimum 1 image required</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="validation-section"
+          id="validationSection"
+          style="display: none"
+        >
+          <div class="validation-checking" id="validationChecking">
+            <p>🔍 Validating uploaded images for ammunition content...</p>
+          </div>
+
+          <div
+            class="validation-results"
+            id="validationResults"
+            style="display: none"
+          >
+            <h4>✓ Validation Complete</h4>
+            <div class="validation-summary" id="validationSummary"></div>
+          </div>
+
+          <div
+            class="validation-error"
+            id="validationError"
+            style="display: none"
+          >
+            <h4>⚠️ Validation Issues</h4>
+            <div class="error-details" id="errorDetails"></div>
+          </div>
+        </div>
+
         <button class="analyze-btn" id="analyzeBtn" disabled>
-          Analyze Ammunition
+          Analyze Ammunition (Enhanced)
         </button>
       </div>
 
       <div class="results-section" id="resultsSection">
         <div class="loading" id="loadingIndicator">
           <div class="loading-spinner"></div>
-          <p>Analyzing ammunition characteristics...</p>
+          <p>Analyzing multiple images for enhanced accuracy...</p>
         </div>
 
         <div id="resultsContent" style="display: none">
@@ -85,38 +211,77 @@
                 <div class="confidence-fill" id="confidenceBar"></div>
               </div>
               <div class="confidence-text" id="confidenceText">
-                Confidence: --
+                Overall Confidence: --
               </div>
             </div>
+            <div class="analysis-breakdown" id="analysisBreakdown"></div>
           </div>
 
           <div class="results-grid">
             <div class="result-card">
-              <h3>Identification</h3>
+              <h3>🔍 Identification</h3>
               <p id="identificationDetails">--</p>
             </div>
 
             <div class="result-card">
-              <h3>Ballistics Performance</h3>
+              <h3>📊 Specifications</h3>
+              <p id="specificationsData">--</p>
+            </div>
+
+            <div class="result-card">
+              <h3>📈 Ballistics Performance</h3>
               <p id="ballisticsData">--</p>
             </div>
 
             <div class="result-card">
-              <h3>Safety Information</h3>
+              <h3>⚠️ Safety Information</h3>
               <p id="safetyNotes">--</p>
             </div>
 
             <div class="result-card">
-              <h3>Historical Background</h3>
+              <h3>📚 Historical Background</h3>
               <p id="historicalInfo">--</p>
+            </div>
+
+            <div class="result-card">
+              <h3>⚖️ Similar Cartridges</h3>
+              <p id="similarCartridges">--</p>
+            </div>
+          </div>
+
+          <div class="feedback-section">
+            <h3>🎯 Help Us Improve</h3>
+            <p>Was this identification correct?</p>
+            <div class="feedback-buttons">
+              <button class="feedback-btn correct" id="correctBtn">
+                ✓ Correct
+              </button>
+              <button class="feedback-btn incorrect" id="incorrectBtn">
+                ✗ Incorrect
+              </button>
+            </div>
+            <div
+              class="correction-form"
+              id="correctionForm"
+              style="display: none"
+            >
+              <input
+                type="text"
+                class="correction-input"
+                placeholder="What is the correct caliber?"
+                id="correctionInput"
+              />
+              <button class="submit-correction" id="submitCorrection">
+                Submit Correction
+              </button>
             </div>
           </div>
 
           <div class="email-capture">
-            <h3>Get Detailed Ballistics Data</h3>
+            <h3>Get Advanced Ballistics Data</h3>
             <p>
-              Join our community for exclusive ballistics charts, reloading
-              data, and expert shooting insights.
+              Join our community for detailed ballistics charts, reloading data,
+              and expert insights.
             </p>
             <div class="email-form">
               <input
