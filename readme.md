@@ -20,10 +20,6 @@ This tool leverages OpenAI's GPT-4 Vision API to automatically identify ammuniti
 - 📱 **Responsive Design** - Works seamlessly on desktop and mobile devices
 - 🎨 **Professional Branding** - Clean, modern styling
 
-## 🚀 Live Demo
-
-**[Try the Live Demo →](https://your-railway-url-here.up.railway.app)**
-
 ## 🛠️ Technology Stack
 
 - **Frontend**: Vanilla JavaScript, HTML5, CSS3
